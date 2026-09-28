@@ -1,0 +1,323 @@
+/* Paleta de la presentación: crema, azul marino y naranjo. El resto viene de Mantine. */
+
+:root {
+  --navy: #1b2140;
+  --crema: #fbf7ef;
+  --tarjeta: #fffdf8;
+  --borde: #e6dccb;
+  --arena: #f3ecdf;
+  --suave: #4a4e69;
+  --naranjo: #f28c28;
+  --naranjo-texto: #b85c00;
+  --naranjo-claro: #fce3cc;
+  --azul-texto: #2b5fae;
+  --azul-claro: #dce7f8;
+  --curva: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-body: var(--crema);
+  --mantine-color-text: var(--navy);
+  --mantine-color-dimmed: var(--suave);
+  --mantine-color-default: var(--tarjeta);
+  --mantine-color-default-border: var(--navy);
+  --mantine-color-default-hover: var(--arena);
+  --mantine-color-default-color: var(--navy);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.numero {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Encabezado (como la portada) ---------- */
+.mantine-AppShell-header {
+  background: var(--navy);
+  border-bottom: none;
+  color: var(--crema);
+}
+.antetitulo {
+  color: #f7a24b;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.atajos {
+  color: #c9d1e8;
+  font-size: 15px;
+  font-weight: 600;
+}
+.atajos kbd {
+  background: rgba(251, 247, 239, 0.1);
+  border-color: rgba(251, 247, 239, 0.25);
+  color: var(--crema);
+}
+
+/* ---------- Tarjetas (como las de las diapositivas) ---------- */
+.tarjeta {
+  background: var(--tarjeta);
+  border: 2px solid var(--borde);
+  border-radius: 24px;
+  box-shadow: none;
+}
+
+/* ---------- Controles ---------- */
+.mantine-SegmentedControl-root {
+  background: var(--arena);
+}
+.mantine-SegmentedControl-label {
+  font-weight: 800;
+  color: var(--suave);
+}
+.mantine-SegmentedControl-label[data-active] {
+  color: var(--navy);
+}
+.mantine-SegmentedControl-indicator {
+  background: var(--tarjeta);
+  box-shadow: 0 1px 2px rgba(27, 33, 64, 0.12), 0 0 0 1px var(--borde);
+}
+
+.mantine-Button-root {
+  font-weight: 800;
+}
+.mantine-Button-root[data-variant="default"],
+.mantine-ActionIcon-root[data-variant="default"] {
+  border-width: 2px;
+}
+.mantine-InputWrapper-label {
+  font-weight: 700;
+  color: var(--suave);
+}
+.mantine-Input-input {
+  border: 2px solid var(--borde);
+  background: #fff;
+  color: var(--navy);
+}
+.mantine-Input-input:focus {
+  border-color: var(--naranjo);
+}
+
+/* Presión táctil (better-ui: scale on press = 0.96) */
+.mantine-Button-root,
+.mantine-ActionIcon-root {
+  transition-property: scale, background-color, color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: var(--curva);
+}
+.presionable:active:not(:disabled):not([data-disabled]) {
+  scale: 0.96;
+  transform: none;
+}
+
+/* Íconos que se alternan (opacity + scale + blur) */
+.icono-alternable {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.icono-capa {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  transition-property: opacity, scale, filter;
+  transition-duration: 300ms;
+  transition-timing-function: var(--curva);
+}
+.icono-capa[data-visible="false"] {
+  opacity: 0;
+  scale: 0.25;
+  filter: blur(4px);
+}
+.icono-capa[data-visible="true"] {
+  opacity: 1;
+  scale: 1;
+  filter: blur(0px);
+}
+.icono-tenue {
+  color: var(--suave);
+  flex-shrink: 0;
+}
+
+/* ---------- Insignias (píldoras de la presentación) ---------- */
+.insignia {
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.insignia-naranja {
+  background: var(--naranjo-claro);
+  color: var(--naranjo-texto);
+}
+.insignia-azul {
+  background: var(--azul-claro);
+  color: var(--azul-texto);
+}
+.insignia-linea {
+  font-variant-numeric: tabular-nums;
+  transition-property: opacity;
+  transition-duration: 150ms;
+}
+.insignia-linea[data-visible="false"] {
+  opacity: 0;
+}
+
+/* ---------- Columnas ---------- */
+.columnas {
+  --espacio: 8px;
+  height: clamp(220px, 30vh, 420px);
+  display: flex;
+  align-items: stretch;
+  gap: var(--espacio);
+  padding-top: 32px; /* lugar para el número y la carta levantada */
+}
+.columnas[data-densas="true"] {
+  --espacio: 3px;
+}
+.columna {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  transition-property: opacity;
+  transition-duration: 200ms;
+}
+.columna[data-fuera="true"] {
+  opacity: 0.35;
+}
+.columna-barra {
+  position: relative;
+  width: 100%;
+  min-height: 6px;
+  border-radius: 10px 10px 0 0;
+  transition-property: background-color;
+  transition-duration: 150ms;
+  transition-timing-function: var(--curva);
+}
+.columna-valor {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% 0;
+  padding-bottom: 4px;
+  font-family: var(--mantine-font-family-monospace);
+  font-weight: 700;
+  font-size: clamp(13px, 1.25vw, 20px);
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.columnas[data-densas="true"] .columna-valor {
+  font-size: 12px;
+}
+.columnas[data-sin-numeros="true"] .columna-valor {
+  display: none;
+}
+
+.muestra {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.leyenda {
+  font-weight: 700;
+}
+
+/* ---------- Narrador ---------- */
+.narrador {
+  background: var(--arena);
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+.narrador > * {
+  width: 100%;
+}
+
+/* ---------- Estadísticas ---------- */
+.dato {
+  background: var(--crema);
+  border-radius: 12px; /* concéntrico: 24px de la tarjeta − 12px de padding */
+  padding: 10px 14px;
+}
+.dato-valor {
+  font-family: Fredoka, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1.1;
+}
+.dato-etiqueta {
+  color: var(--suave);
+}
+@media (max-width: 36em) {
+  .dato {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ---------- Código (bloque azul marino, como en las diapositivas) ---------- */
+.tarjeta-codigo .codigo {
+  border-radius: 16px; /* concéntrico: 24px − 8px de padding */
+}
+.codigo {
+  position: relative;
+  margin: 0;
+  padding: 14px 0;
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 15px;
+  line-height: 1.7;
+  font-variant-ligatures: none;
+  max-height: max(300px, calc(100vh - 480px));
+  overflow: auto;
+}
+.codigo-linea {
+  display: flex;
+  padding-right: 16px;
+  white-space: pre;
+  box-shadow: inset 4px 0 0 transparent;
+  transition-property: opacity, background-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: var(--curva);
+}
+.codigo-linea.atenuada {
+  opacity: 0.55;
+}
+.codigo-linea.activa {
+  background: rgba(242, 140, 40, 0.25);
+  box-shadow: inset 4px 0 0 var(--naranjo);
+}
+.codigo-numero {
+  flex-shrink: 0;
+  width: 3.5ch;
+  margin: 0 14px 0 6px;
+  text-align: right;
+  color: #6c7394;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.codigo-linea.activa .codigo-numero {
+  color: #f7a24b;
+  font-weight: 700;
+}
+
+.entrada-numeros {
+  font-family: var(--mantine-font-family-monospace);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icono-capa,
+  .codigo-linea,
+  .columna,
+  .columna-barra,
+  .mantine-Button-root,
+  .mantine-ActionIcon-root {
+    transition-duration: 0ms;
+  }
+}
