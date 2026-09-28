@@ -1,37 +1,35 @@
 import type { Algoritmo, Paso } from "../tipos";
 
 // Mismo código que la presentación y la guía de estudio (codigo/algoritmos.ts).
-const codigo = `function bubbleSort(arr: number[]): number[] {
-  const a = [...arr]; // copia
-  for (let i = 0; i < a.length - 1; i++) {
-    for (let j = 0; j < a.length - 1 - i; j++) {
-      if (a[j] > a[j + 1]) {
-        [a[j], a[j + 1]] = [a[j + 1], a[j]];
+const codigo = `function bubbleSort(lista: number[]): number[] {
+  for (let vuelta = 1; vuelta < lista.length; vuelta++) {
+    for (let i = 0; i < lista.length - 1; i++) {
+      if (lista[i] > lista[i + 1]) {
+        [lista[i], lista[i + 1]] = [lista[i + 1], lista[i]];
       }
     }
   }
-  return a;
+  return lista;
 }`;
 
-function* pasos(a: number[]): Generator<Paso, void, undefined> {
-  const n = a.length;
-  yield { linea: 2, mensaje: "Hago una copia de la lista para no cambiar la original" };
-  for (let i = 0; i < n - 1; i++) {
-    for (let j = 0; j < n - 1 - i; j++) {
-      const alReves = a[j] > a[j + 1];
+function* pasos(lista: number[]): Generator<Paso, void, undefined> {
+  const n = lista.length;
+  for (let vuelta = 1; vuelta < n; vuelta++) {
+    for (let i = 0; i < n - 1; i++) {
+      const alReves = lista[i] > lista[i + 1];
       yield {
-        linea: 5,
-        comparar: [j, j + 1],
-        mensaje: `¿${a[j]} > ${a[j + 1]}? ${alReves ? "Sí, están al revés" : "No, están bien"}`,
+        linea: 4,
+        comparar: [i, i + 1],
+        mensaje: `¿${lista[i]} > ${lista[i + 1]}? ${alReves ? "Sí, están al revés" : "No, están bien"}`,
       };
       if (alReves) {
-        [a[j], a[j + 1]] = [a[j + 1], a[j]];
-        yield { linea: 6, cambiar: [j, j + 1], mensaje: `Intercambio: ahora ${a[j]} va antes que ${a[j + 1]}` };
+        [lista[i], lista[i + 1]] = [lista[i + 1], lista[i]];
+        yield { linea: 5, cambiar: [i, i + 1], mensaje: `Intercambio: ahora ${lista[i]} va antes que ${lista[i + 1]}` };
       }
     }
-    yield { linea: 3, fijos: [n - 1 - i], mensaje: `Fin de la vuelta ${i + 1}: el ${a[n - 1 - i]} ya está en su lugar` };
+    yield { linea: 2, fijos: [n - vuelta], mensaje: `Fin de la vuelta ${vuelta}: el ${lista[n - vuelta]} ya está en su lugar` };
   }
-  yield { linea: 10, fijos: [0], mensaje: "Devuelvo la lista ordenada" };
+  yield { linea: 9, fijos: [0], mensaje: "Devuelvo la lista ordenada" };
 }
 
 export const bubbleSort: Algoritmo = {
